@@ -472,6 +472,9 @@ class EpochTracker {
   // pad time in seconds to add to the last measured period during
   // output of periodically-resampled data
   float endpoint_padding_;
+
+  // Avoid two many logging infos `Residual symmetry: ...`
+  int maximum_num_infos_ = 1024;
 };
 
 

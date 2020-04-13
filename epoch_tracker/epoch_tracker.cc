@@ -771,8 +771,11 @@ bool EpochTracker::ComputeFeatures(void) {
   n_feature_frames_ = bandpassed_rms_.size();
   float mean = 0.0;
   GetSymmetryStats(residual_, &positive_rms_, &negative_rms_, &mean);
-  fprintf(stdout, "Residual symmetry: P:%f  N:%f  MEAN:%f\n", positive_rms_,
-          negative_rms_, mean);
+  if (maximum_num_infos_-- > 0) {
+    fprintf(stdout, "Residual symmetry: P:%f  N:%f  MEAN:%f\n", positive_rms_,
+            negative_rms_, mean);
+  }
+
   if (positive_rms_ > negative_rms_) {
     fprintf(stdout, "Inverting signal\n");
     for (size_t i = 0; i < residual_.size(); ++i) {
